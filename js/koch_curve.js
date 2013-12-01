@@ -1,31 +1,36 @@
-var KochCurve = function() {
-  var Segment = function(start, end) {
-    this.startPt = start;
-    this.endPt = end;
-  };
+var Segment = function(start, end) {
+  this.startPt = start;
+  this.endPt = end;
+};
 
-  var Point = function(x, y) {
-    this.x = x;
-    this.y = y;
+var Point = function(x, y) {
+  this.x = x;
+  this.y = y;
 
-    this.add = function(pt) {
-      return (new Point(this.x + pt.x, this.y + pt.y));
-    }
-
-    this.sub = function(pt) {
-      return (new Point(this.x - pt.x, this.y - pt.y));
-    }
-
-    this.mul = function(multiplier) {
-      return (new Point(this.x * multiplier, this.y * multiplier));
-    }
-
-    this.div = function(divisor) {
-      return (new Point(this.x / divisor, this.y / divisor));
-    }
+  this.add = function(pt) {
+    return (new Point(this.x + pt.x, this.y + pt.y));
   }
 
-  this.segments = [new Segment(new Point(0, 0.5), new Point(1.0, 0.5))];
+  this.sub = function(pt) {
+    return (new Point(this.x - pt.x, this.y - pt.y));
+  }
+
+  this.mul = function(multiplier) {
+    return (new Point(this.x * multiplier, this.y * multiplier));
+  }
+
+  this.div = function(divisor) {
+    return (new Point(this.x / divisor, this.y / divisor));
+  }
+}
+
+var KochCurve = function(initialSegments) {
+  if (typeof(initialSegments) === 'undefined') {
+    this.segments = [new Segment(new Point(0, 0.5), new Point(1.0, 0.5))];
+  }
+  else {
+    this.segments = initialSegments;
+  }
 
   this.next = function() {
     if (this.segments.length >= 5000) {
