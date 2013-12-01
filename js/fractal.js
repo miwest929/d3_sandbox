@@ -3,10 +3,9 @@ var h = 600;
 
 //The data for our line
 var koch = new KochCurve([
-  new Segment(new Point(0.3, 0.3), new Point(0.7, 0.3)),
-  new Segment(new Point(0.7, 0.3), new Point(0.7, 0.7)),
-  new Segment(new Point(0.7, 0.7), new Point(0.3, 0.7)),
-  new Segment(new Point(0.3, 0.7), new Point(0.3, 0.3))
+  new Segment(new Point(0.3, 0.7), new Point(0.7, 0.7)),
+  new Segment(new Point(0.7, 0.7), new Point(0.5, 0.3)),
+  new Segment(new Point(0.5, 0.3), new Point(0.3, 0.7)),
 ]);
 var lineFunction = d3.svg.line()
                          .x(function(d) { return d.x; })

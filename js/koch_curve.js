@@ -49,8 +49,8 @@ var KochCurve = function(initialSegments) {
 
       // If you want next point facing down instead. Use +60 degrees (+1.04719 radians).
       var rotatedPt = new Point(
-        Math.cos(-1.04719) * multiplierPt.x + -Math.sin(-1.04719) * multiplierPt.y,
-        Math.sin(-1.04719) * multiplierPt.x + Math.cos(-1.04719) * multiplierPt.y
+        Math.cos(1.04719) * multiplierPt.x + -Math.sin(1.04719) * multiplierPt.y,
+        Math.sin(1.04719) * multiplierPt.x + Math.cos(1.04719) * multiplierPt.y
       );
       var pt2 = pt1.add(rotatedPt);
 
