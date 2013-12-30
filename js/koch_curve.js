@@ -22,6 +22,13 @@ var Point = function(x, y) {
   this.div = function(divisor) {
     return (new Point(this.x / divisor, this.y / divisor));
   }
+
+  this.rotate = function(radian) {
+    return (new Point(
+      Math.cos(radian) * this.x + -Math.sin(radian) * this.y,
+      Math.sin(radian) * this.x + Math.cos(radian) * this.y
+    ));
+  }
 }
 
 var KochCurve = function(initialSegments) {
@@ -30,6 +37,28 @@ var KochCurve = function(initialSegments) {
   }
   else {
     this.segments = initialSegments;
+  }
+
+  this.prev = function() {
+    var newSegments = [];
+
+    if (this.segments.length <= 4) {
+      return;
+    }
+
+    for(segmentIndex = 0; segmentIndex < this.segments.length; segmentIndex += 4) {
+      var firstSegment = this.segments[segmentIndex];
+      var fourthSegment = this.segments[segmentIndex+3];
+
+      if (fourthSegment === undefined) {
+        newSegments.push(firstSegment);
+      }
+      else {
+        newSegments.push(new Segment(firstSegment.startPt, fourthSegment.endPt));
+      }
+    }
+
+    this.segments = newSegments;
   }
 
   this.next = function() {
@@ -45,14 +74,7 @@ var KochCurve = function(initialSegments) {
       var pt3 = currSegment.endPt.mul(2).add(currSegment.startPt).div(3);
 
       // pt2 = pt1 + R(pt3 − pt1).
-      var multiplierPt = pt3.sub(pt1);
-
-      // If you want next point facing down instead. Use +60 degrees (+1.04719 radians).
-      var rotatedPt = new Point(
-        Math.cos(1.04719) * multiplierPt.x + -Math.sin(1.04719) * multiplierPt.y,
-        Math.sin(1.04719) * multiplierPt.x + Math.cos(1.04719) * multiplierPt.y
-      );
-      var pt2 = pt1.add(rotatedPt);
+      var pt2 = pt3.sub(pt1).rotate(1.04719).add(pt1);
 
       newSegments.push(new Segment(currSegment.startPt, pt1));
       newSegments.push(new Segment(pt1, pt2));
