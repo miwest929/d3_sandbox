@@ -1,6 +1,4 @@
-#!/usr/bin/env ruby
-
-d3html = %Q(<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" href='css/app.css'>
@@ -10,13 +8,6 @@ d3html = %Q(<!DOCTYPE html>
     <script src="js/lib/jquery-2.0.3.min.js"></script>
     <script src="js/svg_utils.js"></script>
     <script src='js/lib/d3.min.js'></script>
-    <script src='js/#{ARGV[0]}.js'></script>
+    <script src='js/gameoflife.js'></script>
   </body>
 </html>
-)
-
-File.open("#{ARGV[0]}.html", 'w') {|f| f.write(d3html) }
-puts "Created #{ARGV[0]}.html!"
-
-File.open("js/#{ARGV[0]}.js", 'w') {|f| f.write("// Insert Javascript code below") }
-puts "Created js/#{ARGV[0]}.js!"
